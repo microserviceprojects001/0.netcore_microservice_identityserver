@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "buildMVCCookieAuthSample",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/MVCCookieAuthSample/MVCCookieAuthSample.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildMVCClient",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/MVCClient/MVCClient.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+      
+    ]
+}

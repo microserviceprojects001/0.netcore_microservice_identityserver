@@ -1,0 +1,34 @@
+@model MvcCookieAuthSample.Models.Account.RegisterViewModel
+
+<h2>注册</h2>
+
+<form asp-action="Register" method="post">
+    <input type="hidden" asp-for="ReturnUrl" />
+
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">密码</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group"></div>
+    <label asp-for="ConfirmedPassword">密码</label>
+    <input asp-for="ConfirmedPassword" type="password" class="form-control" />
+    <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">注册</button>
+</form>
+
+@if (!ViewContext.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary()
+    </div>
+}

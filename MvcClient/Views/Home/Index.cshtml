@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.AspNetCore.Authentication
+@{
+    ViewData["Title"] = "Home Page";
+    var tokens = await Context.GetTokenAsync("access_token");
+    var idToken = await Context.GetTokenAsync("id_token");
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+<dl>
+    {{ 显示 tokens }}
+    <dt>access_token</dt>
+    <dd>@tokens</dd>
+
+    <dt>id_token</dt>
+    <dd>@idToken</dd>
+
+    {{ claims 显示 }}
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>

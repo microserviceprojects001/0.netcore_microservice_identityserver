@@ -1,0 +1,28 @@
+﻿@model MvcCookieAuthSample.Models.Consent.ScopeViewModel
+<li class="list-group-item">
+    <label>
+        <input class="consent-scopecheck" type="checkbox" name="ScopesConsented" id="scopes_@Model.Value"
+            value="@Model.Value" checked="@Model.Checked" disabled="@Model.Required" />
+        <!--  如果是Disabled的ScopesConsented是无法传递到服务器的，所以需要隐藏一个input来传递这个值 -->
+        <!-- 这里的逻辑是如果Required为true，表示这个Scope是必须的，所以需要传递到服务器 -->
+        @if (Model.Required)
+        {
+            <input type="hidden" name="ScopesConsented" value="@Model.Value" />
+        }
+        <strong>@Model.DisplayName</strong>
+        @if (Model.Emphasize)
+        {
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+        }
+    </label>
+    @if (Model.Required)
+    {
+        <span><em>(required)</em></span>
+    }
+    @if (Model.Description != null)
+    {
+        <div class="consent-description">
+            <label for="scopes_@Model.Value">@Model.Description</label>
+        </div>
+    }
+</li>

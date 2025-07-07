@@ -1,0 +1,51 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "IdentityServer",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildMVCCookieAuthSample",
+            "program": "${workspaceFolder}\\bin\\Debug\\net9.0\\MvcCookieAuthSample.dll", // 直接指定DLL
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "symbolOptions": {
+                "searchPaths": [
+                    "${workspaceFolder}\\bin\\Debug\\net9.0" // 改为单层目录
+                ],
+                "searchMicrosoftSymbolServer": true
+            },
+            "logging": {
+                "moduleLoad": true
+            }
+        }
+    ]
+}
+
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": ".NET Core Launch (MVC)",
+//             "type": "coreclr",  // 强制使用 coreclr 调试器
+//             "request": "launch",
+//             "program": "dotnet",
+//             "args": ["run", "--project", "${workspaceFolder}/MvcCookieAuthSample.csproj"],
+//             "cwd": "${workspaceFolder}",
+//             "stopAtEntry": false,
+//             "serverReadyAction": {
+//                 "action": "openExternally",
+//                 "pattern": "Now listening on:\\s+(https?://\\S+)",  // 匹配日志中的URL
+//                 "uriFormat": "%s"  // 直接使用监听的URL
+//             },
+//             "justMyCode": false,  // 确保能调试所有代码（包括库代码）
+//             "symbolOptions": {
+//                 "searchPaths": ["${workspaceFolder}/bin/Debug/net9.0/**"]  // 确保 PDB 文件被加载
+//             },
+//             "env": {
+//                 "ASPNETCORE_ENVIRONMENT": "Development"
+//             }
+//         }
+//     ]
+// }
