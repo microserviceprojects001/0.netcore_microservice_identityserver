@@ -76,8 +76,8 @@ if (tokenResponse.IsError)
     return;
 }
 
-Console.WriteLine(tokenResponse.Json);
-Console.WriteLine(tokenResponse.AccessToken);
+Console.WriteLine("Json:" + tokenResponse.Json);
+Console.WriteLine("Token:" + tokenResponse.AccessToken);
 
 // 4. 调用受保护的 API
 var apiClient = new HttpClient();
