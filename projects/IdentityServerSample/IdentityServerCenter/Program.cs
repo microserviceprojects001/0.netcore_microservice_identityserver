@@ -19,7 +19,8 @@ builder.Services.AddIdentityServer()
     .AddInMemoryIdentityResources(Config.GetIdentityResources())
     .AddInMemoryApiScopes(Config.GetApiScopes())  // 新增这一行！
     .AddInMemoryClients(Config.GetClients())
-    .AddTestUsers(Config.GetUsers());
+    .AddTestUsers(Config.GetUsers())
+    .AddProfileService<CustomProfileService>();
 
 builder.Services.AddControllers();
 
