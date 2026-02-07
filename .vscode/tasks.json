@@ -20,6 +20,26 @@
                 "${workspaceFolder}/MVCClient/MVCClient.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "pwdClient",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/projects/IdentityServerSample/PwdClient/PwdClient.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "IdentityServerCenter",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/projects/IdentityServerSample/IdentityServerCenter/IdentityServerCenter.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
       
     ]

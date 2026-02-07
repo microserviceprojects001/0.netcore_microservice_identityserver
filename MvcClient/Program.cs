@@ -21,6 +21,7 @@ if (!string.IsNullOrEmpty(urls))
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
 builder.Services.AddAuthentication(option =>

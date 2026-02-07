@@ -62,7 +62,44 @@
                 "moduleLoad": true
             }
         },
-
+        {
+            "name": ".NET Core PwdClient",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "pwdClient", // 关键！调用 tasks.json 中的 "build" 任务
+            "program": "${workspaceFolder}\\projects\\IdentityServerSample\\PwdClient\\bin\\Debug\\net9.0\\PwdClient.dll", // 直接指定DLL
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "symbolOptions": {
+                "searchPaths": [
+                    "${workspaceFolder}\\projects\\IdentityServerSample\\PwdClient\\bin\\Debug\\net9.0" // 改为单层目录
+                ],
+                "searchMicrosoftSymbolServer": true
+            },
+            "logging": {
+                "moduleLoad": true
+            }
+        },
+        {
+            "name": ".NET Core IdentityServerCenter",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "IdentityServerCenter", // 关键！调用 tasks.json 中的 "build" 任务
+            "program": "${workspaceFolder}\\projects\\IdentityServerSample\\IdentityServerCenter\\bin\\Debug\\net9.0\\IdentityServerCenter.dll", // 直接指定DLL
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "symbolOptions": {
+                "searchPaths": [
+                    "${workspaceFolder}\\projects\\IdentityServerSample\\IdentityServerCenter\\bin\\Debug\\net9.0" // 改为单层目录
+                ],
+                "searchMicrosoftSymbolServer": true
+            },
+            "logging": {
+                "moduleLoad": true
+            }
+        }
     ]
 }
 

@@ -16,6 +16,7 @@ if (!string.IsNullOrEmpty(urls))
 builder.Services.AddIdentityServer()
     .AddDeveloperSigningCredential()// 开发环境下自动生成签名凭据
     .AddInMemoryApiResources(Config.GetResource())
+    .AddInMemoryIdentityResources(Config.GetIdentityResources())
     .AddInMemoryApiScopes(Config.GetApiScopes())  // 新增这一行！
     .AddInMemoryClients(Config.GetClients())
     .AddTestUsers(Config.GetUsers());
