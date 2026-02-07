@@ -58,7 +58,7 @@ public class Config
     {
         return new List<ApiResource>
         {
-            new ApiResource("api", "My API")
+            new ApiResource("api1", "My API")
             {
                 Scopes = { "api" }
             }

@@ -40,6 +40,16 @@
                 "${workspaceFolder}/projects/IdentityServerSample/IdentityServerCenter/IdentityServerCenter.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "ThirdPartyDemo",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/projects/IdentityServerSample/ThirdPartyDemo/ThirdPartyDemo.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
       
     ]

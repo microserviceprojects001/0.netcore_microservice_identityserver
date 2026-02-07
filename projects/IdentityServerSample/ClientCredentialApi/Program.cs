@@ -23,7 +23,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.Authority = "http://localhost:5000";
         //options.requirehttpsmetadata = false;
-        options.Audience = "api";
+        options.Audience = "api1";
         // 手动配置 MetadataAddress，绕过 HTTPS 检查（仅开发环境！）
         options.ConfigurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
             metadataAddress: "http://localhost:5000/.well-known/openid-configuration",

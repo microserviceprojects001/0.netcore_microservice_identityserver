@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ClientCredentialApi.Controllers;
 
-[Authorize]
+
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
@@ -20,15 +20,16 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    [Authorize]  //如果标记了Authorize特性，用户未通过身份验证将无法访问此端点
+    [HttpGet("GetWeatherForecast")]
+    public IActionResult Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        return Ok(from c in User.Claims select new { c.Type, c.Value });
+    }
+
+    [HttpGet("clientTest")] // 访问路径：/WeatherForecast/clientTest
+    public IActionResult clientTest()
+    {
+        return Ok(from c in User.Claims select new { c.Type, c.Value });
     }
 }

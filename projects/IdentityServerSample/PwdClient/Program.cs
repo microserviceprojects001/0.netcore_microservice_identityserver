@@ -72,9 +72,10 @@ catch (Exception ex)
 
 // 5. 调用受保护的 API
 var apiClient = new HttpClient();
+
 apiClient.SetBearerToken(passwordTokenResponse.AccessToken);
 
-var response = await apiClient.GetAsync("http://localhost:5001/weatherforecast");
+var response = await apiClient.GetAsync("http://localhost:5001/weatherforecast/GetWeatherForecast");
 if (response.IsSuccessStatusCode)
 {
     var content = await response.Content.ReadAsStringAsync();

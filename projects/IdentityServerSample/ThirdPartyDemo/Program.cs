@@ -83,7 +83,8 @@ Console.WriteLine("Token:" + tokenResponse.AccessToken);
 var apiClient = new HttpClient();
 apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-var response = await apiClient.GetAsync("http://localhost:5001/weatherforecast");
+//var response = await apiClient.GetAsync("http://localhost:5001/WeatherForecast/clientTest");// 能调过去，
+var response = await apiClient.GetAsync("http://localhost:5001/WeatherForecast/GetWeatherForecast");
 if (response.IsSuccessStatusCode)
 {
     var content = await response.Content.ReadAsStringAsync();
