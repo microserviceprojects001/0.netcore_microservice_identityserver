@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
 using IdentityModel;
 using IdentityModel.Client;
 
@@ -17,7 +19,14 @@ namespace MvcClient.Controllers
         {
             // 生成 PKCE 参数
             var codeVerifier = CryptoRandom.CreateUniqueId(32);
-            var codeChallenge = codeVerifier.ToSha256();
+
+            // ✅ 显式使用 SHA256 + Base64Url 编码（无填充）
+            byte[] hash;
+            using (var sha = SHA256.Create())
+            {
+                hash = sha.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
+            }
+            var codeChallenge = Base64Url.Encode(hash); // 无填充，且 / 替换为 _
 
             // 生成 state 和 nonce
             var state = CryptoRandom.CreateUniqueId(16);
@@ -37,7 +46,7 @@ namespace MvcClient.Controllers
                                $"&redirect_uri={Uri.EscapeDataString(redirectUri)}" +
                                $"&response_type=code" +
                                $"&scope={Uri.EscapeDataString(scope)}" +
-                               $"&code_challenge={codeChallenge}" +
+                               $"&code_challenge={codeChallenge}" +          // ✅ 现在是无填充的 Base64Url
                                $"&code_challenge_method=S256" +
                                $"&response_mode=form_post" +
                                $"&state={Uri.EscapeDataString(state)}" +
@@ -52,44 +61,38 @@ namespace MvcClient.Controllers
         /// </summary>
         public IActionResult IndexCodeView()
         {
-            // ✅ 通过键名获取表单字段（不依赖顺序）
             string code = Request.Form["code"];
             string state = Request.Form["state"];
             string scope = Request.Form["scope"];
             string session_state = Request.Form["session_state"];
 
-            // ✅ 强制验证 state（防 CSRF）
+            // 验证 state（防 CSRF）
             var savedState = HttpContext.Session.GetString("auth_state");
             if (string.IsNullOrEmpty(state) || state != savedState)
             {
                 return BadRequest("Invalid state parameter.");
             }
 
-            // 将接收到的参数存入 ViewBag，供视图显示
             ViewBag.code = code;
             ViewBag.scope = scope;
             ViewBag.state = state;
             ViewBag.session_state = session_state;
 
-            // 返回视图，让用户手动点击“获取Token”
             return View();
         }
 
         /// <summary>
-        /// 3. 手动触发换取 Token（从查询字符串接收 code）
+        /// 3. 手动触发换取 Token
         /// </summary>
         public async Task<IActionResult> IndexTokenView(string code)
         {
-            // 检查 code
             if (string.IsNullOrEmpty(code))
                 return BadRequest("No authorization code provided.");
 
-            // 从 Session 取出之前保存的 code_verifier
             var codeVerifier = HttpContext.Session.GetString("code_verifier");
             if (string.IsNullOrEmpty(codeVerifier))
                 return BadRequest("No code verifier found. Please start over.");
 
-            // 构造 Token 请求
             var httpClient = new HttpClient();
             var tokenResponse = await httpClient.RequestAuthorizationCodeTokenAsync(
                 new AuthorizationCodeTokenRequest
@@ -107,13 +110,12 @@ namespace MvcClient.Controllers
                 return Content($"Token 请求失败: {tokenResponse.Error}");
             }
 
-            // 成功，存入 ViewBag 供视图显示
             ViewBag.AccessToken = tokenResponse.AccessToken;
             ViewBag.RefreshToken = tokenResponse.RefreshToken;
             ViewBag.IdentityToken = tokenResponse.IdentityToken;
             ViewBag.ExpiresIn = tokenResponse.ExpiresIn;
 
-            return View(); // 对应视图 IndexTokenView.cshtml
+            return View();
         }
     }
 }
