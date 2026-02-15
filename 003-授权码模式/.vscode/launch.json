@@ -1,0 +1,71 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildClient", // 关键！调用 tasks.json 中的 "build" 任务
+            "program": "${workspaceFolder}\\Client\\MvcClient\\bin\\Debug\\net5.0\\MvcClient.dll", // 直接指定DLL
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "symbolOptions": {
+                "searchPaths": [
+                    "${workspaceFolder}\\Client\\MvcClient\\bin\\Debug\\net5.0" // 改为单层目录
+                ],
+                "searchMicrosoftSymbolServer": true
+            },
+            "logging": {
+                "moduleLoad": true
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development" // 强制使用 Development 环境
+            }
+        },
+        {
+            "name": ".NET IdentityServer",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildIdentityServer", // 关键！调用 tasks.json 中的 "build" 任务
+            "program": "${workspaceFolder}\\IdentityServer\\Authorization.IdentityServer\\bin\\Debug\\netcoreapp3.1\\Authorization.IdentityServer.dll", // 直接指定DLL
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "symbolOptions": {
+                "searchPaths": [
+                    "${workspaceFolder}\\IdentityServer\\Authorization.IdentityServer\\bin\\Debug\\netcoreapp3.1" // 改为单层目录
+                ],
+                "searchMicrosoftSymbolServer": true
+            },
+            "logging": {
+                "moduleLoad": true
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development" // 强制使用 Development 环境
+            }
+        },
+        {
+            "name": "实现流程解析 Client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "analysisClient", // 关键！调用 tasks.json 中的 "build" 任务
+            "program": "${workspaceFolder}\\实现流程解析\\Client\\MvcClient\\bin\\Debug\\net5.0\\MvcClient.dll", // 直接指定DLL
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "symbolOptions": {
+                "searchPaths": [
+                    "${workspaceFolder}\\实现流程解析\\Client\\MvcClient\\bin\\Debug\\net5.0" // 改为单层目录
+                ],
+                "searchMicrosoftSymbolServer": true
+            },
+            "logging": {
+                "moduleLoad": true
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development" // 强制使用 Development 环境
+            }
+        }
+    ]
+}

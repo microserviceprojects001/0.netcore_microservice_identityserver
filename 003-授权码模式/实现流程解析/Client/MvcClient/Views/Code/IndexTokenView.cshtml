@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Token 响应";
+}
+
+<h2>✅ Token 获取成功</h2>
+
+<h3>Access Token:</h3>
+<p style="word-break: break-all; color: green;">@ViewBag.AccessToken</p>
+
+@if (!string.IsNullOrEmpty(ViewBag.RefreshToken))
+{
+    <h3>Refresh Token:</h3>
+    <p style="word-break: break-all;">@ViewBag.RefreshToken</p>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.IdentityToken))
+{
+    <h3>Identity Token:</h3>
+    <p style="word-break: break-all;">@ViewBag.IdentityToken</p>
+}
+
+<h3>过期时间:</h3>
+<p>@ViewBag.ExpiresIn 秒</p>
+
+<br />
+<a href="@Url.Action("CodeTokenView")">再试一次</a>

@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "IndexCodeView";
+}
+
+<h2>授权服务器回调成功，参数如下：</h2>
+
+<h3>code:</h3>
+<p style="color:red; word-break: break-all;">@ViewBag.code</p>
+
+<h3>scope:</h3>
+<p style="color:red;">@ViewBag.scope</p>
+
+<h3>state:</h3>
+<p style="color:red;">@ViewBag.state</p>
+
+<h3>session_state:</h3>
+<p style="color:red;">@ViewBag.session_state</p>
+
+<br />
+<a class="btn btn-primary" href="@Url.Action("IndexTokenView", new { code = ViewBag.code })">
+    获取 Token
+</a>

@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "buildClient",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Client/MvcClient/MvcClient.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildIdentityServer",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/IdentityServer/Authorization.IdentityServer/Authorization.IdentityServer.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "analysisClient",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/实现流程解析/Client/MvcClient/MvcClient.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
