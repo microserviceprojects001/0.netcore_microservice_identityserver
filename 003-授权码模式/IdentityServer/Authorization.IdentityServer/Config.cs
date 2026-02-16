@@ -98,7 +98,7 @@ namespace Authorization.IdentityServer
                      {
                                     ClientId = "CodePattern",          //客户端Id
                                     ClientName = "MvcApplication",     //客户端名称
-
+                                    AlwaysIncludeUserClaimsInIdToken = true,
                                     AllowedGrantTypes = GrantTypes.Code,   //认证模式--授权码模式
 
                                     RedirectUris ={

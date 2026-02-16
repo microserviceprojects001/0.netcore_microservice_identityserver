@@ -129,7 +129,8 @@ namespace IdentityServerHost.Quickstart.UI
                         ScopesValuesConsented = scopes.ToArray(),
                         Description = model.Description
                     };
-
+                    //这个方法不影响授权流程本身，只是一个“旁观者”，用于记录发生了什么。
+                    // 触发同意授予事件
                     // emit event
                     await _events.RaiseAsync(new ConsentGrantedEvent(User.GetSubjectId(), request.Client.ClientId, request.ValidatedResources.RawScopeValues, grantedConsent.ScopesValuesConsented, grantedConsent.RememberConsent));
                 }
@@ -145,9 +146,14 @@ namespace IdentityServerHost.Quickstart.UI
 
             if (grantedConsent != null)
             {
+                //将用户同意的结果（grantedConsent）与原始的授权请求（request）关联并保存，
+                // 以便 IdentityServer 的授权端点后续能读取到用户的同意选择，从而完成授权码或令牌的颁发。
+
+                // 关键步骤：将用户的同意选择持久化到授权请求中
                 // communicate outcome of consent back to identityserver
                 await _interaction.GrantConsentAsync(request, grantedConsent);
 
+                // 设置重定向地址（回到授权端点）
                 // indicate that's it ok to redirect back to authorization endpoint
                 result.RedirectUri = model.ReturnUrl;
                 result.Client = request.Client;
@@ -197,7 +203,7 @@ namespace IdentityServerHost.Quickstart.UI
             vm.IdentityScopes = request.ValidatedResources.Resources.IdentityResources.Select(x => CreateScopeViewModel(x, vm.ScopesConsented.Contains(x.Name) || model == null)).ToArray();
 
             var apiScopes = new List<ScopeViewModel>();
-            foreach(var parsedScope in request.ValidatedResources.ParsedScopes)
+            foreach (var parsedScope in request.ValidatedResources.ParsedScopes)
             {
                 var apiScope = request.ValidatedResources.Resources.FindApiScope(parsedScope.ParsedName);
                 if (apiScope != null)

@@ -1,6 +1,21 @@
+@model UserIdentity
 @{
     ViewData["Title"] = "Privacy Policy";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div>
+    <p><strong>用户ID:</strong> @Model.UserId</p>
+    <p><strong>姓名:</strong> @Model.Name</p>
+    <p><strong>公司:</strong> @Model.Company</p>
+    <p><strong>职位:</strong> @Model.Title</p>
+    <p><strong>头像:</strong> @Model.Avatar</p>
+</div>
+
+<h3>所有声明：</h3>
+<ul>
+    @foreach (var claim in User.Claims)
+    {
+        <li><strong>@claim.Type:</strong> @claim.Value</li>
+    }
+</ul>
