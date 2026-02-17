@@ -40,6 +40,7 @@ namespace MvcClient
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.SignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme; // 👈 新增
                 options.Authority = "https://localhost:5001";//获取发现文档/获取公钥
                 options.RequireHttpsMetadata = true;//ʹ使用Https 必须使用，如果不是Https会报错
                 options.ClientId = "CodePattern";
@@ -54,9 +55,16 @@ namespace MvcClient
                 //options.Scope.Add(OidcConstants.StandardScopes.Address);
                 //options.Scope.Add(OidcConstants.StandardScopes.OfflineAccess); //获取到刷新Token
                 options.SaveTokens = true;//表示Token要存储
+
+                // 👇 新增登出配置
+                options.SignedOutCallbackPath = "/signout-callback-oidc"; // 与 PostLogoutRedirectUri 路径一致
+                options.SignedOutRedirectUri = "https://localhost:7001/"; // 登出完成后重定向到首页
             });
 
             services.AddControllersWithViews();
+
+            var scheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            Console.WriteLine($"Cookie scheme: {scheme}");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

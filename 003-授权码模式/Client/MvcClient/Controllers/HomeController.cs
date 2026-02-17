@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MvcClient.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvcClient.Controllers
 {
@@ -72,6 +76,38 @@ namespace MvcClient.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            // 清除本地 Cookie
+            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // 触发 OIDC 登出，重定向到 IdentityServer
+            // await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+
+            // 注意：上面的 SignOutAsync 会处理重定向，不需要返回视图
+            // 但如果上面的调用没有自动重定向（例如由于配置问题），可以手动重定向到首页
+            //return RedirectToAction("Index");
+            // 先清除本地 Cookie
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return SignOut(OpenIdConnectDefaults.AuthenticationScheme);
+        }
+
+        public IActionResult Login()
+        {
+            // 如果用户已登录，直接重定向到首页（可选）
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            // 触发 OpenID Connect 认证挑战，登录成功后重定向到首页
+            return Challenge(new AuthenticationProperties
+            {
+                RedirectUri = "/" // 或 Url.Action("Index", "Home")
+            });
         }
     }
 }

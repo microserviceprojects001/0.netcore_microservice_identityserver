@@ -106,7 +106,7 @@ namespace Authorization.IdentityServer
                                     },
                                     // RedirectUris = {"http://localhost:7001/auth.html" }, //跳转登出到的客户端的地址
                                     PostLogoutRedirectUris ={
-                                        "http://localhost:7001/signout-callback-oidc",
+                                        "https://localhost:7001/signout-callback-oidc",
                                     },
                                     ClientSecrets = { new Secret("CodePatternSecret".Sha256()) },
 
