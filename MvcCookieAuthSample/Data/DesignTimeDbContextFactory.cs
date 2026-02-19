@@ -7,8 +7,9 @@ namespace MvcCookieAuthSample.Data
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
+
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlite("Data Source=AspIdUsers.db"); // 临时数据库，仅用于生成迁移
+            optionsBuilder.UseSqlite("Data Source=AspIdUsers1.db"); // 临时数据库，仅用于生成迁移
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }

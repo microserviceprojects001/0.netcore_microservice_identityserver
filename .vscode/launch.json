@@ -8,7 +8,7 @@
             "preLaunchTask": "buildMVCCookieAuthSample", // 关键！调用 tasks.json 中的 "build" 任务
             "program": "${workspaceFolder}\\MVCCookieAuthSample\\bin\\Debug\\net9.0\\MVCCookieAuthSample.dll", // 直接指定DLL
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/MVCCookieAuthSample",
             "console": "integratedTerminal",
             "symbolOptions": {
                 "searchPaths": [
@@ -22,26 +22,7 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development" // 强制使用 Development 环境
             }
-        },
-        {
-            "name": "IdentityServer",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "buildMVCCookieAuthSample", // 关键！调用 tasks.json 中的 "build" 任务
-            "program": "${workspaceFolder}\\MVCCookieAuthSample\\bin\\Debug\\net9.0\\MvcCookieAuthSample.dll", // 直接指定DLL
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "console": "integratedTerminal",
-            "symbolOptions": {
-                "searchPaths": [
-                    "${workspaceFolder}\\MVCCookieAuthSample\\bin\\Debug\\net9.0" // 改为单层目录
-                ],
-                "searchMicrosoftSymbolServer": true
-            },
-            "logging": {
-                "moduleLoad": true
-            }
-        },
+        },        
         
         {
             "name": ".NET Core MVCClient",

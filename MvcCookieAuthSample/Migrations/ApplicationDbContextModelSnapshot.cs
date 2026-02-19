@@ -7,7 +7,7 @@ using MvcCookieAuthSample.Data;
 
 #nullable disable
 
-namespace MvcCookieAuthSample.Data.Migrations
+namespace MvcCookieAuthSample.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

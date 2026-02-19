@@ -11,8 +11,8 @@ using MvcCookieAuthSample.Data;
 namespace MvcCookieAuthSample.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250505222946_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260219015503_YourMigrationName")]
+    partial class YourMigrationName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

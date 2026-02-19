@@ -17,24 +17,34 @@ using Duende.IdentityServer.EntityFramework.DbContexts;
 //System.Diagnostics.Debugger.Break(); // 强制中断
 
 var builder = WebApplication.CreateBuilder(args);
+
+foreach (var kvp in builder.Configuration.AsEnumerable())
+{
+    Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+}
 // 从 appsettings.json 读取 Urls 配置
 var urls = builder.Configuration["Urls"];
 // if (!string.IsNullOrEmpty(urls))
 // {
 builder.WebHost.UseUrls("https://localhost:5002");
 //}
-
+// 直接从配置中读取连接字符串
+var connectionString = builder.Configuration.GetConnectionString("MySQL");
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("未在 appsettings.json 中找到 MySQL 连接字符串。");
+}
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-// 先构建 ServiceProvider
-var serviceProvider = builder.Services.BuildServiceProvider();
-var config = serviceProvider.GetRequiredService<IConfiguration>();  // 现在可以获取配置
-var connectionString = config.GetConnectionString("DefaultConnection");
+
+
+//var connectionString = "Data Source=AspIdUsers1.db";
+// var dbPath = Path.Combine(AppContext.BaseDirectory, "AspIdUsers1.db");
+// var connectionString = $"Data Source={dbPath}";
 
 //Configuration.GetConnectionString("DefaultConnection")
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlite(connectionString,
-                   o => o.MigrationsAssembly(typeof(Program).Assembly.FullName)));
+               options.UseSqlite(connectionString, o => o.MigrationsAssembly(typeof(Program).Assembly.FullName)));
 
 builder.Services.AddIdentity<ApplicationUser, ApplicationUserRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -82,8 +92,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddScoped<ConsentService>();
 
-
-SeedData.EnsureSeedDataAsync(connectionString ?? "Data Source=AspIdUsers.db;");
+SeedData.EnsureSeedDataAsync(connectionString);
 
 // ...后续中间件配置...
 var app = builder.Build();

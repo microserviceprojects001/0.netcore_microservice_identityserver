@@ -449,3 +449,17 @@ public IActionResult WeChatCallback(string code, string state)
 }
 
 ```
+
+# 总结
+
+前端虽然能短暂看到 code，但无法完成换取令牌的关键步骤，因为：
+
+client_secret 仅后端知晓；
+
+code_verifier 仅后端持有；
+
+令牌端点通常拒绝跨域请求；
+
+即使强行模拟，也无法通过授权服务器的验证。
+
+这正是 OAuth 2.0 授权码模式的安全精髓：将授权码暴露给前端（不可避免），但将令牌交换所需的核心机密（client_secret 或 code_verifier）牢牢锁在后端。你的代码完美体现了这一设计——所有敏感操作都在后端完成，前端只负责触发重定向和接收最终结果。

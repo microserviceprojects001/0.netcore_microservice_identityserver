@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MvcCookieAuthSample.Migrations.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20250506234311_InitConfigDb")]
+    [Migration("20260219020316_InitConfigDb")]
     partial class InitConfigDb
     {
         /// <inheritdoc />

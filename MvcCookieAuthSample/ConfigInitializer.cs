@@ -8,7 +8,7 @@ public class ConfigInitializer
 {
     public static async Task InitializeAsync(ConfigurationDbContext context)
     {
-        // 检查是否已存在数据
+        //检查是否已存在数据
         if (await context.Clients.AnyAsync()) return;
         if (await context.ApiResources.AnyAsync()) return;
         if (await context.IdentityResources.AnyAsync()) return;
