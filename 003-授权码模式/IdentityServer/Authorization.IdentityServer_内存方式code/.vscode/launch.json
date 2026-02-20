@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "IdentityServer",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}\\bin\\Debug\\netcoreapp3.1\\Authorization.IdentityServer.dll", // 直接指定DLL
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "symbolOptions": {
+                "searchPaths": [
+                    "${workspaceFolder}\\bin\\Debug\\netcoreapp3.1" // 改为单层目录
+                ],
+                "searchMicrosoftSymbolServer": true
+            },
+            "logging": {
+                "moduleLoad": true
+            }
+        }
+    ]
+}
