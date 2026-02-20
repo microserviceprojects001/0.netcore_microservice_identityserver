@@ -9,5 +9,7 @@ namespace MvcCookieAuthSample.Models
     public class ApplicationUser : IdentityUser
     {
         public string Avatar { get; set; } = string.Empty;
+
+        public string NickName1 { get; set; } = string.Empty;
     }
 }

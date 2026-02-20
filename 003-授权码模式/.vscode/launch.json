@@ -8,7 +8,7 @@
             "preLaunchTask": "buildClient", // 关键！调用 tasks.json 中的 "build" 任务
             "program": "${workspaceFolder}\\Client\\MvcClient\\bin\\Debug\\net5.0\\MvcClient.dll", // 直接指定DLL
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/Client/MvcClient",
             "console": "integratedTerminal",
             "symbolOptions": {
                 "searchPaths": [
@@ -30,7 +30,7 @@
             "preLaunchTask": "buildIdentityServer", // 关键！调用 tasks.json 中的 "build" 任务
             "program": "${workspaceFolder}\\IdentityServer\\Authorization.IdentityServer\\bin\\Debug\\netcoreapp3.1\\Authorization.IdentityServer.dll", // 直接指定DLL
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/IdentityServer/Authorization.IdentityServer",
             "console": "integratedTerminal",
             "symbolOptions": {
                 "searchPaths": [

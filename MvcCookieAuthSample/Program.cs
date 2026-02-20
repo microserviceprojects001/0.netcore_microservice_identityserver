@@ -105,7 +105,7 @@ using (var scope = app.Services.CreateScope())
     var configDb = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
     {
         {
-            await ConfigInitializer.InitializeAsync(configDb);
+
         }
     }
 }
